@@ -5,7 +5,7 @@ NEURON {
 	SUFFIX CadepK
 	USEION ca READ ica
 	USEION k READ ek WRITE ik
-	RANGE gbkbar, gskbar, gbar, i, ask, bsk, gsk, gbk, isk, ibk
+	RANGE gbkbar, gskbar, gbar, i, ask_sympy, bsk, gsk, gbk, isk, ibk
 	GLOBAL ca0, tau, stau, taucadiv, tauskdiv, erevBK, erevSK
 }
 
@@ -27,7 +27,7 @@ PARAMETER {
 	tau = 9		(ms)
 	taucadiv = 1
 	tauskdiv = 1
-	ask = 1
+	ask_sympy = 1
 	bsk = 1
 	alphar = 7.5	(/ms)
 	stau = 10		(ms)
@@ -66,7 +66,7 @@ BREAKPOINT {
 
 DERIVATIVE state {	: exact when v held constant; integrates over dt step
 	ca_i' = -B*ica - taucadiv*(ca_i-ca0)/tau
-	q' = tauskdiv*(ask*alphaq(ca_i)*(1-q)-bsk*betaq(ca_i)*q)
+	q' = tauskdiv*(ask_sympy*alphaq(ca_i)*(1-q)-bsk*betaq(ca_i)*q)
 	r' = alphar*(1-r)-betar(v)*r
 	s' = (mysinf(ca_i)-s)/stau
 }
